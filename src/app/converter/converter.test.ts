@@ -122,22 +122,16 @@ describe('Converter class', () => {
   });
 
   describe('includePaths support', () => {
+    const opts = { inputFiles: [path.resolve('./test/scss/_with-import.scss')], includePaths: [] };
+    opts.includePaths = [path.resolve('./test/scss/')];
+    const converter = new Converter(opts);
+    const structured = converter.getStructured();
 
     it('should import variables from other files', () => {
-      let opts = { inputFiles: [path.resolve('./test/scss/_with-import.scss')], includePaths: [] };
-      opts.includePaths = [path.resolve('./test/scss/')];
-      let converter = new Converter(opts);
-      let structured = converter.getStructured();
-
       expect(structured.variables[0]).to.have.property('compiledValue');
     });
 
     it('should parse map imports from other files', () => {
-      let opts = { inputFiles: [path.resolve('./test/scss/_with-import.scss')], includePaths: [] };
-      opts.includePaths = [path.resolve('./test/scss/')];
-      let converter = new Converter(opts);
-      let structured = converter.getStructured();
-
       expect(structured.variables[1].mapValue[0].mapValue[0]).to.have.property('compiledValue');
       expect(structured.variables[1].mapValue[0].mapValue[0].name).to.be.equal('breakpoints');
     });
