@@ -82,7 +82,7 @@ describe('Converter class', () => {
       results = converter.getArray();
     });
 
-    it('should include variables form both files', () => {
+    it('should include variables from both files', () => {
       let foundFirst = Utils.getDeclarationByName(results, '$brand-solitude');
       expect(foundFirst.value).to.equal('#ebeff2');
 
@@ -130,6 +130,16 @@ describe('Converter class', () => {
       let structured = converter.getStructured();
 
       expect(structured.variables[0]).to.have.property('compiledValue');
+    });
+
+    it('should parse map imports from other files', () => {
+      let opts = { inputFiles: [path.resolve('./test/scss/_with-import.scss')], includePaths: [] };
+      opts.includePaths = [path.resolve('./test/scss/')];
+      let converter = new Converter(opts);
+      let structured = converter.getStructured();
+
+      expect(structured.variables[1].mapValue[0].mapValue[0]).to.have.property('compiledValue');
+      expect(structured.variables[1].mapValue[0].mapValue[0].name).to.be.equal('breakpoints');
     });
   });
 

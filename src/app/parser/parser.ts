@@ -96,7 +96,7 @@ export class Parser {
     return matches as any;
   }
 
-  private extractMapDeclarations(content: string): [any] {
+  public extractMapDeclarations(content: string): [any] {
     const matches = content.match(new RegExp(MAP_DECLARATIOM_REGEX, 'g'));
 
     if (!matches) {
@@ -107,7 +107,7 @@ export class Parser {
   }
 
 
-  private parseSingleDeclaration(matchDeclaration: string, isMap: boolean = false): IDeclaration {
+  public parseSingleDeclaration(matchDeclaration: string, isMap: boolean = false): IDeclaration {
     let matches = matchDeclaration
       .replace(/\s*!(default|global)\s*;/, ';')
       .match(new RegExp(this.getDeclarationPattern(isMap)));

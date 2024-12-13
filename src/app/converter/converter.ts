@@ -68,7 +68,7 @@ export class Converter {
 
         if (declaration.mapValue) {
           declaration.mapValue.map((mapDeclaration) => {
-            mapDeclaration.compiledValue = this.renderPropertyValue(content, mapDeclaration, true);
+            this.compiledMapStructure(mapDeclaration);
             return mapDeclaration;
           });
         }
@@ -78,6 +78,29 @@ export class Converter {
     });
 
     return this.checkForMixins(structuredDeclaration);
+  }
+
+  private compiledMapStructure(structuredDeclaration: IDeclaration)
+  {
+    let content = this.getContent();
+    var parser = new Parser(content);
+
+    // set compiledValue
+    structuredDeclaration.compiledValue = this.renderPropertyValue(content, structuredDeclaration, true);
+
+    // set mapValue
+    let map = parser.extractMapDeclarations(structuredDeclaration.compiledValue);
+    if (map.length) {
+      structuredDeclaration.mapValue = map.map((declaration) => {
+        const singleDeclaration = parser.parseSingleDeclaration(
+          `$${declaration};`,
+          true
+        );
+        this.compiledMapStructure(singleDeclaration);
+
+        return singleDeclaration;
+      });
+    }
   }
 
 

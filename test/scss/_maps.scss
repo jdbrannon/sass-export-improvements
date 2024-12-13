@@ -42,3 +42,9 @@ $levels: (
   500: 0,
   900: 80%
 );
+
+$container-map: (
+  'breakpoints': $bps,
+  'icons': $icons,
+  'levels': $levels
+);

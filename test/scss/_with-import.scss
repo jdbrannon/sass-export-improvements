@@ -1,3 +1,8 @@
 @import "breakpoints";
+@import "maps";
 
 $imported-value: $bp-desktop;
+
+$nested-map-import: (
+  "imported-map": $container-map
+);
