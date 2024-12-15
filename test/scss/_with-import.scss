@@ -3,6 +3,7 @@
 
 $imported-value: $bp-desktop;
 
-$nested-map-import: (
-  "imported-map": $container-map
+$imported-maps: (
+  "container-map-copy": $container-map,
+  "bps-copy": $bps
 );

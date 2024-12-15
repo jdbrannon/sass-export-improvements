@@ -68,7 +68,7 @@ export class Converter {
 
         if (declaration.mapValue) {
           declaration.mapValue.map((mapDeclaration) => {
-            this.compiledMapStructure(mapDeclaration);
+            this.compileMapStructure(mapDeclaration);
             return mapDeclaration;
           });
         }
@@ -80,7 +80,7 @@ export class Converter {
     return this.checkForMixins(structuredDeclaration);
   }
 
-  private compiledMapStructure(structuredDeclaration: IDeclaration)
+  private compileMapStructure(structuredDeclaration: IDeclaration)
   {
     let content = this.getContent();
     var parser = new Parser(content);
@@ -96,7 +96,7 @@ export class Converter {
           `$${declaration};`,
           true
         );
-        this.compiledMapStructure(singleDeclaration);
+        this.compileMapStructure(singleDeclaration);
 
         return singleDeclaration;
       });
